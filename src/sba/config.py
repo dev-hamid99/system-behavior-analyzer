@@ -20,6 +20,7 @@ class AppConfig(BaseModel):
     data_dir: Path = ROOT_DIR / "data"
     models_dir: Path = ROOT_DIR / "models"
     logs_dir: Path = ROOT_DIR / "logs"
+    log_file: Path = logs_dir / "sba.log"
 
     # Storage
     parquet_file: Path = data_dir / "metrics.parquet"
