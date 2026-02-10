@@ -18,25 +18,24 @@ def run_gui() -> int:
         traceback.print_exc()
         return 1
 
-    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-    QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-
-    setup_logging()
-    app = QApplication(sys.argv)
-
     try:
-        app.setStyleSheet(stylesheet(dark=True))
-    except Exception as exc:  # pragma: no cover
-        print(f"[aurora.gui] Failed to apply theme: {exc!r}", file=sys.stderr)
-        traceback.print_exc()
+        QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+        QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
-    window = MainWindow()
-    window.show()
+        setup_logging()
+        app = QApplication(sys.argv)
 
-    try:
+        try:
+            app.setStyleSheet(stylesheet(dark=True))
+        except Exception as exc:  # pragma: no cover
+            print(f"[aurora.gui] Failed to apply theme: {exc!r}", file=sys.stderr)
+            traceback.print_exc()
+
+        window = MainWindow()
+        window.show()
         return app.exec()
     except Exception as exc:  # pragma: no cover
-        print(f"[aurora.gui] Event loop crashed: {exc!r}", file=sys.stderr)
+        print(f"[aurora.gui] GUI startup failed: {exc!r}", file=sys.stderr)
         traceback.print_exc()
         return 1
 
