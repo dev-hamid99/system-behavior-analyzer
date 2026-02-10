@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import sys
 
@@ -14,21 +14,24 @@ def main() -> None:
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
-    app = QApplication(sys.argv)
+    app = QApplication.instance() or QApplication(sys.argv)
 
     # Apply global stylesheet (single source of truth)
     try:
         app.setStyleSheet(APP_QSS)
     except Exception as e:
-        # If theme breaks, show clear error in console (instead of silent "looks old")
         print("ERROR applying APP_QSS:", repr(e))
         app.setStyleSheet("")
 
     w = MainWindow()
     w.setObjectName("AppRoot")  # IMPORTANT: allows QWidget#AppRoot rules to match
     w.show()
+    raise SystemExit(app.exec())
 
-    sys.exit(app.exec())
+
+def run_gui() -> None:
+    """Entrypoint for: python -m sba.guardian_gui"""
+    main()
 
 
 if __name__ == "__main__":
