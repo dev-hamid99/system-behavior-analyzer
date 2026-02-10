@@ -1,10 +1,8 @@
-# System Behavior Analyzer (SBA)
+# AURORA (formerly System Behavior Analyzer)
 
-Collect system metrics (CPU/RAM/Disk/Network) with `psutil`, persist them to **SQLite** + **Parquet**, and detect anomalies using **IsolationForest**.
+AURORA is an AI-powered PC Guardian desktop app with safe diagnostics and optimization workflows.
 
-## Quick start
-
-### 1) Install (recommended)
+## Install
 
 ```bash
 python -m venv .venv
@@ -13,65 +11,38 @@ python -m pip install -U pip
 python -m pip install -e .
 ```
 
-Check:
-
-```bash
-sba --help
-```
-
-### 2) Collect data
-
-Collect 60 samples (about 5 minutes at the default 5s interval):
-
-```bash
-sba collect --samples 60
-```
-
-Outputs:
-- `data/metrics.sqlite`
-- `data/metrics.parquet`
-
-### 3) Train
-
-```bash
-sba train
-```
-
-Model output:
-- `models/isoforest.joblib`
-
-### 4) Detect anomalies
-
-```bash
-sba detect --limit 20
-```
-
-## Run as a module
-
-This also works:
-
-```bash
-python -m sba --help
-```
-
-## Optional: GUI (Guardian)
-
-GUI is optional and not installed by default.
+Install GUI dependencies:
 
 ```bash
 python -m pip install -e ".[gui]"
 ```
 
-Launch GUI directly as a module:
+## Launch
+
+### AURORA GUI (default module launch)
 
 ```bash
-python -m sba.guardian_gui
+python -m aurora
 ```
 
-Or launch via CLI command:
+### AURORA CLI
 
 ```bash
-sba gui
+aurora --help
+aurora scan
+aurora fix-preview
+aurora report
+aurora gui
+```
+
+`python -m aurora --help` also shows CLI help.
+
+## Legacy SBA compatibility
+
+SBA command is still available:
+
+```bash
+sba --help
 ```
 
 ## Development
@@ -79,6 +50,5 @@ sba gui
 ```bash
 python -m pip install -e ".[dev]"
 pytest -q
-ruff check .
-mypy src
+ruff check src tests
 ```
