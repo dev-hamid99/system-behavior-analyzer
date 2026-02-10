@@ -34,7 +34,6 @@ from PySide6.QtWidgets import (
     QScrollArea,
 )
 
-print("DASHBOARD LOADED:", __file__)
 
 
 # ==========================================================
