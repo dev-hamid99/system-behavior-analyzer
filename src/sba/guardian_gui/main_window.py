@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Optional
@@ -160,10 +160,10 @@ class PageMeta:
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowTitle("System Guardian AI")
+        self.setWindowTitle("SBA Control Center")
 
-        self.setMinimumSize(1060, 680)
-        self.resize(1320, 820)
+        self.setMinimumSize(1120, 720)
+        self.resize(1400, 860)
 
         # Live worker + session
         self._sys_worker: Optional[SystemWorker] = None
@@ -238,7 +238,7 @@ class MainWindow(QMainWindow):
     def _build_sidebar(self) -> QWidget:
         sidebar = QFrame()
         sidebar.setObjectName("Sidebar")
-        sidebar.setFixedWidth(270)
+        sidebar.setFixedWidth(292)
 
         lay = QVBoxLayout(sidebar)
         lay.setContentsMargins(16, 16, 16, 16)
@@ -250,17 +250,17 @@ class MainWindow(QMainWindow):
         bl.setContentsMargins(14, 12, 14, 12)
         bl.setSpacing(6)
 
-        title = QLabel("Guardian AI")
+        title = QLabel("SBA Control Center")
         title.setObjectName("Title")
         title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         title.setMinimumWidth(0)
         title.setWordWrap(False)
 
-        subtitle = QLabel("Monitoring • Anomalies • Explanations")
+        subtitle = QLabel("Observe • Detect • Improve")
         subtitle.setObjectName("Subtitle")
         subtitle.setWordWrap(False)
 
-        badge = Pill("Live", "neutral")
+        badge = Pill("Studio", "neutral")
         badge.hide()
         badge.setAlignment(Qt.AlignCenter)
         badge.setFixedHeight(30)
@@ -290,7 +290,7 @@ class MainWindow(QMainWindow):
         nav.setContentsMargins(0, 0, 0, 0)
         nav.setSpacing(8)
 
-        for name in ["Dashboard", "Anomalies", "Assistant", "Settings"]:
+        for name in ["🏠 Dashboard", "🚨 Anomalies", "🤖 Assistant", "⚙ Settings"]:
             b = QPushButton(name)
             b.setCheckable(True)
             b.setCursor(Qt.PointingHandCursor)
@@ -344,7 +344,7 @@ class MainWindow(QMainWindow):
         lay.addLayout(left, 1)
 
         self.search = QLineEdit()
-        self.search.setPlaceholderText("Search… (process, anomaly, metric)")
+        self.search.setPlaceholderText("Search metrics, anomalies or context…")
         self.search.setMaximumWidth(360)
         lay.addWidget(self.search)
 
