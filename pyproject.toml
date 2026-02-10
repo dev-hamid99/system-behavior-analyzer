@@ -9,14 +9,11 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [project]
-name = "aurora"
-version = "0.2.0"
-description = "AURORA - AI-powered PC Guardian"
-readme = "README.md"
+name = "system-behavior-analyzer"
+version = "0.1.0"
 requires-python = ">=3.11"
-license = { text = "MIT" }
-authors = [{ name = "AbdRaoof Hamid" }]
 dependencies = [
+  # runtime
   "psutil>=5.9",
   "pandas>=2.1",
   "pyarrow>=14",
@@ -39,8 +36,8 @@ gui = [
   "PySide6>=6.6",
 ]
 
+
 [project.scripts]
-aurora = "aurora.cli.app:main"
 sba = "sba.cli.app:main"
 
 [tool.ruff]

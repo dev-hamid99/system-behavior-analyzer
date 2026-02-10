@@ -1,15 +1,10 @@
-# AURORA
+# System Behavior Analyzer (SBA)
 
-AURORA ist ein AI-gestützter PC-Guardian für Windows-first Desktop Monitoring, Diagnose und sichere Optimierungs-Workflows.
+Collect system metrics (CPU/RAM/Disk/Network) with `psutil`, persist them to **SQLite** + **Parquet**, and detect anomalies using **IsolationForest**.
 
-## Kernprinzipien
+## Quick start
 
-- **Opt-in Actions**: Jede Änderung hat `preview`, `risk`, `rollback`.
-- **Keine stillen Änderungen durch AI**: Copilot schlägt vor, UI bestätigt.
-- **Modular**: Scanner, Actions, Advisor, AI, GUI und CLI sind getrennt.
-- **Release-orientiert**: Logging, SQLite Audit, Tests und klare Struktur.
-
-## Installation
+### 1) Install (recommended)
 
 ```bash
 python -m venv .venv
@@ -18,32 +13,72 @@ python -m pip install -U pip
 python -m pip install -e .
 ```
 
-## Quick Start
+Check:
 
 ```bash
-aurora --help
-aurora scan
-aurora fix-preview
-aurora report
+sba --help
 ```
 
-## GUI
+### 2) Collect data
+
+Collect 60 samples (about 5 minutes at the default 5s interval):
+
+```bash
+sba collect --samples 60
+```
+
+Outputs:
+- `data/metrics.sqlite`
+- `data/metrics.parquet`
+
+### 3) Train
+
+```bash
+sba train
+```
+
+Model output:
+- `models/isoforest.joblib`
+
+### 4) Detect anomalies
+
+```bash
+sba detect --limit 20
+```
+
+## Run as a module
+
+This also works:
+
+```bash
+python -m sba --help
+```
+
+## Optional: GUI (Guardian)
+
+GUI is optional and not installed by default.
 
 ```bash
 python -m pip install -e ".[gui]"
-python -m aurora
 ```
 
-## Sicherheitsmodell
+Launch GUI directly as a module:
 
-- Actions sind plugin-artig und implementieren `preview/apply/rollback`.
-- `apply()` verlangt explizite Bestätigung.
-- Audit Events werden in SQLite gespeichert.
+```bash
+python -m sba.guardian_gui
+```
 
-## Entwicklung
+Or launch via CLI command:
+
+```bash
+sba gui
+```
+
+## Development
 
 ```bash
 python -m pip install -e ".[dev]"
 pytest -q
-ruff check src/aurora tests
+ruff check .
+mypy src
 ```
